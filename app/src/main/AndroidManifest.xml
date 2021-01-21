@@ -1,0 +1,85 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mgtv.apkinstaller">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REMOVED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INSTALL_LOCATION_PROVIDER" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".MyApplication"
+
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.ApkListActivity"
+            android:label="@string/app_name" />
+
+        <receiver
+            android:name=".ApkRemoveReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- 应用安装了 -->
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+
+                <!-- 应用卸载了 -->
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <!-- 应用被覆盖了 -->
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
+                <!-- 系统就是这样发送的，所以必须这样订阅 -->
+                <data android:scheme="package" />
+
+            </intent-filter>
+
+            <intent-filter>
+
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <action android:name="android.net.ethernet.ETHERNET_STATE_CHANGE" />
+
+                <action android:name="android.net.ethernet.ETHERNET_STATE_CHANGED" />
+
+                <action android:name="android.net.ethernet.STATE_CHANGE" />
+
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGED" />
+
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+
+            </intent-filter>
+
+        </receiver>
+    </application>
+
+</manifest>

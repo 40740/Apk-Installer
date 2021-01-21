@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    signingConfigs {
+        Properties properties = new Properties()
+        InputStream inputStream
+        def key_keyAlias
+        def key_keyPassword
+        def key_storePassword
+
+        mgtv_sign {
+            try {
+                inputStream = file('key/mgtv/sign_info.properties').newDataInputStream()
+                properties.load(inputStream)
+                //读取文件
+                def sdkDir = properties.getProperty('storeFile')
+                storeFile file(sdkDir)
+                //读取字段
+                key_keyAlias = properties.getProperty('keyAlias')
+                key_keyPassword = properties.getProperty('keyPassword')
+                key_storePassword = properties.getProperty('storePassword')
+                //关闭输入流
+                inputStream.close()
+                storePassword key_storePassword
+                keyAlias key_keyAlias
+                keyPassword key_keyPassword
+            } catch (Exception e) {
+                e.printStackTrace()
+            }
+        }
+
+    }
+
+    defaultConfig {
+        applicationId "com.mgtv.apkinstaller"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 10
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.mgtv_sign
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+        implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+        implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+        implementation 'com.google.code.gson:gson:2.6.2'
+        implementation 'com.alibaba:fastjson:1.2.17'
+        implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+        implementation 'org.greenrobot:eventbus:3.0.0'
+        androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+        androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+        testImplementation 'junit:junit:4.12'
+    }
+}

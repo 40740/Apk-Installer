@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ApkInstaller</string>
+    <string name="hnyd_iptv">湖南移动IPTV</string>
+    <string name="hnyd_ott">湖南移动OTT</string>
+    <string name="hndx_iptv">湖南电信IPTV</string>
+    <string name="hnlt_ott">湖南联通OTT</string>
+    <string name="ynyd_ott">云南移动OTT</string>
+    <string name="exit">退出APP</string>
+    <string name="loading">下载进度</string>
+
+    <string name="text1">湖南电信、联通、移动等相关apk下载</string>
+
+</resources>
